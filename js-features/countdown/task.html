@@ -10,6 +10,7 @@
     <title>Таймер обратного отсчёта</title>
 </head>
 <body>
+    <a id="invisibleLink" style="display: none;" href='#' download target="_blank"></a>
     <header class="header">
         <div class="logo__container">
           <a href="https://netology.ru/" class="logo__link"></a>
@@ -20,9 +21,10 @@
     </header>
     <main class="content">
         <div class="card">
-            <div id="status">
-                До окончания конкурса осталось секунд: <span id="timer">59</span>
+            <div style="display: none;" id="status">
+                До окончания конкурса осталось времени: <span id="timerHours">00</span>:<span id="timerMinutes">00</span>:<span id="timerSeconds">00</span>
             </div>
+            <button id="setTimeButton">Установить время</button>
         </div>
     </main>    
     <script src="task.js"></script>
