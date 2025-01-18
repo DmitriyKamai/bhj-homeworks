@@ -19,6 +19,7 @@ tabs2.forEach(element => {
 })
 
 function changeActiveTab(tabsNumber) {
+    if (!event.currentTarget.classList.contains('tab_active')) {
     const activeIndex = window['tabs' + tabsNumber].indexOf(event.currentTarget);
     const notActivetabs = window['tabs' + tabsNumber].filter((element, index) => index != activeIndex);
     const notActiveTabContent = window['tabContent' + tabsNumber].filter((element, index) => index != activeIndex);
@@ -26,4 +27,5 @@ function changeActiveTab(tabsNumber) {
     window['tabContent' + tabsNumber][activeIndex].classList.add('tab__content_active');
     notActivetabs.forEach(element => element.classList.remove('tab_active'));
     window['tabs' + tabsNumber][activeIndex].classList.add('tab_active');
+}
 }
