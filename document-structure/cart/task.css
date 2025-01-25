@@ -10,6 +10,20 @@ body {
 .cart__product {
   position: relative;
 }
+
+.close__btn {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 20px;
+}
+
+.close__btn:hover {
+  cursor: pointer;
+  color: red;
+}
+
 .cart__product-count {
   position: absolute;
   top: 0;
@@ -27,6 +41,7 @@ body {
   object-fit: contain;
 }
 .product {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -39,6 +54,12 @@ body {
 .product__image {
   width: 100px;
   object-fit: contain;
+}
+
+.product__image_copy {
+  position: absolute;
+  top: 59px;
+  left: 0;
 }
 
 .product__quantity-title {
