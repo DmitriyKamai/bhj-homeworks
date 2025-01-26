@@ -5,23 +5,10 @@ const taskslist = document.getElementById('tasks__list');
 
 tasksForm.addEventListener('submit', (e) => {
     e.preventDefault();
-});
-
-tasksInput.addEventListener('keydown', (e) => {
-    if (e.target.value.length) {
-        if (e.code === 'Enter' || e.code === 'NumpadEnter') {
-            todo.createNewTask(e.target.value);
-        }
+    if (tasksInput.value.trim().length) {
+        todo.createNewTask(tasksInput.value.trim());
     }
 });
-
-
-taskAddBtn.addEventListener('click', (e) => {
-    if (tasksInput.value.length) {
-        todo.createNewTask(tasksInput.value);
-    }
-});
-
 
 class Todo {
     constructor() {
@@ -31,33 +18,34 @@ class Todo {
     createNewTask(task) {
         const dateNow = Date.now();
         const newTask = {task: task,  id: dateNow};
-        localStorage.setItem(dateNow, JSON.stringify(newTask));
+        this.taskList.push(newTask);
+        localStorage.setItem('taskList', JSON.stringify(this.taskList));
         this.renderTaskList();
         tasksForm.reset();
     }
 
     createOrder() {
         this.taskList.length = 0;
-        if (localStorage.length) {
-            for (let i = 0; i < localStorage.length; i++) {
-                const itemKey = localStorage.key(i);
-                const itemInLS = JSON.parse(localStorage.getItem(itemKey));
-                this.taskList.push(itemInLS);
+        if (localStorage.getItem('taskList')){
+            this.taskList = JSON.parse(localStorage.getItem('taskList'));
+            if (this.taskList.length) {
+                this.taskList.sort((a,b) => {
+                    if (a.id > b.id) {
+                        return 1;
+                    }
+                    if (a.id < b.id) {
+                        return -1;
+                    }
+                })
             }
-            this.taskList.sort((a,b) => {
-                if (a.id > b.id) {
-                    return 1;
-                }
-                if (a.id < b.id) {
-                    return -1;
-                }
-            })
         }
     }
 
     deleteTask(event) {
         const idForDelete = event.target.closest('.task').getAttribute('data-id');
-        localStorage.removeItem(idForDelete);
+        const indexForDelete = this.taskList.findIndex(element => element.id === +idForDelete);
+        this.taskList.splice(indexForDelete, 1);
+        localStorage.setItem('taskList', JSON.stringify(this.taskList));
         event.target.closest('.task').remove();
     }
 
